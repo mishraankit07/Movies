@@ -1,0 +1,149 @@
+.App {
+    text-align: center;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.App-logo {
+    height: 40vmin;
+    pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .App-logo {
+        animation: App-logo-spin infinite 20s linear;
+    }
+}
+
+.App-header {
+    background-color: #282c34;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+}
+
+.App-link {
+    color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.banner-card {
+    width: 100vw;
+    margin-top: 1vh;
+    margin-bottom: 3vh;
+    height: 70vh;
+    color: white;
+}
+
+.banner-img {
+    width: 100%;
+    height: 100%;
+}
+
+.banner-title {
+    position: absolute;
+    top: 50vh;
+    left: 3rem;
+    color: white;
+}
+
+.banner-text {
+    position: absolute;
+    top: 55vh;
+    left: 3rem;
+    color: white;
+    overflow: hidden;
+}
+
+.movies-list {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100vw;
+    padding: 1rem;
+}
+
+.movie-card {
+    position: relative;
+    width: 20vw;
+    height: 40vh;
+    margin: 2rem;
+    color: white;
+}
+
+.movie-img {
+    width: 100%;
+    height: 100%;
+    background-position: center center;
+    background-color: tomato;
+}
+
+.movie-title {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+}
+
+.favourites-btn-cont {
+    position: absolute;
+    bottom: 3rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.page-navigation{
+    display: flex;
+    justify-content: center;
+}
+
+@media screen and (max-width: 400px) {
+    .banner-card {
+        height: 30vh;
+    }
+    .banner-title {
+        top: 12vh;
+    }
+    .banner-text {
+        top: 15vh;
+    }
+    .movie-card {
+        width: 40vw;
+        height: 40vh;
+        margin: 0.3rem;
+        color: white;
+    }
+    .movie-img {
+        width: 100%;
+        height: 100%;
+        background-position: center center;
+        background-color: tomato;
+    }
+    .movie-title {
+        font-size: 1rem;
+        position: absolute;
+        top: 1rem;
+        left: 1rem;
+    }
+    .favourites-btn-cont {
+        width: 80%;
+    }
+}

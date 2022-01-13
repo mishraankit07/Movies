@@ -1,0 +1,11 @@
+// file to make API call and fetch movies
+// dummy data for now
+
+export const movies={'result' : 
+[{id: 0, original_title : "babushka",backdrop_path : "https://d28hgpri8am2if.cloudfront.net/book_images/onix/cvr9781683835455/jurassic-park-the-ultimate-visual-history-9781683835455_hr.jpg", overview : "Some quick example text to build on the card title and make up the bulk of the card's content."},
+{id: 1, original_title : "babushka",backdrop_path : "https://d28hgpri8am2if.cloudfront.net/book_images/onix/cvr9781683835455/jurassic-park-the-ultimate-visual-history-9781683835455_hr.jpg", overview : "Some quick example text to build on the card title and make up the bulk of the card's content."},
+{id: 2, original_title : "babushka",backdrop_path : "https://d28hgpri8am2if.cloudfront.net/book_images/onix/cvr9781683835455/jurassic-park-the-ultimate-visual-history-9781683835455_hr.jpg", overview : "Some quick example text to build on the card title and make up the bulk of the card's content."},
+{id: 3, original_title : "babushka",backdrop_path : "https://d28hgpri8am2if.cloudfront.net/book_images/onix/cvr9781683835455/jurassic-park-the-ultimate-visual-history-9781683835455_hr.jpg", overview : "Some quick example text to build on the card title and make up the bulk of the card's content."},
+{id: 4, original_title : "babushka",backdrop_path : "https://d28hgpri8am2if.cloudfront.net/book_images/onix/cvr9781683835455/jurassic-park-the-ultimate-visual-history-9781683835455_hr.jpg", overview : "Some quick example text to build on the card title and make up the bulk of the card's content."},
+{id: 5, original_title : "babushka",backdrop_path : "https://d28hgpri8am2if.cloudfront.net/book_images/onix/cvr9781683835455/jurassic-park-the-ultimate-visual-history-9781683835455_hr.jpg", overview : "Some quick example text to build on the card title and make up the bulk of the card's content."},
+{id: 6, original_title : "babushka",backdrop_path : "https://d28hgpri8am2if.cloudfront.net/book_images/onix/cvr9781683835455/jurassic-park-the-ultimate-visual-history-9781683835455_hr.jpg", overview : "Some quick example text to build on the card title and make up the bulk of the card's content."}]};
