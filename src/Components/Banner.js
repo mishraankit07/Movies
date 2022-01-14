@@ -3,7 +3,6 @@ import { movies } from './getMovies'
 
 class Banner extends Component {
     render() {
-        console.log(movies);
         let moviesArr = movies.result;
         let movie=moviesArr[0];
         // the tags need to be closed in react so img tag needs to be made self closing
