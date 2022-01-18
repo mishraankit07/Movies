@@ -36,7 +36,7 @@ class MoviesList extends Component {
         //console.log("Result",res);
         //console.log("After making request!");
         
-        console.log(moviesArr);
+        console.log("movies:",moviesArr);
         this.setState({
             movies: [...moviesArr]
         })

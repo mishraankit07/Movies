@@ -1,11 +1,12 @@
-import React,{Component} from 'react'
+import React,{Component} from 'react';
+import {Link} from 'react-router-dom';
 
 class Navbar extends Component{ 
     render(){
         return(
             <div style={{display:'flex',padding: "0.5rem"}}>
-                <h1 style={{marginLeft: '2rem'}}> Movies App </h1>
-                <h1 style={{marginLeft: '2rem'}}> Favourites </h1>
+                <Link to="/"><h1 style={{marginLeft: '2rem'}}> Movies App </h1></Link>
+                <Link to="/favourites"><h1 style={{marginLeft: '2rem'}}> Favourites </h1></Link>
             </div>
         )
     }
