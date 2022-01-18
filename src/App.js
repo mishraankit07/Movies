@@ -4,6 +4,7 @@ import Navbar from './Components/Navbar';
 import Banner from './Components/Banner';
 import MoviesList from './Components/MoviesList';
 import Favourites from './Components/Favourites';
+import Info from './Components/Info';
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 
 function App() {
@@ -13,12 +14,18 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-          <Route path='/' exact element={<>
-            <Navbar />,
-            <MoviesList />
-          </>}>
-          </Route>
-          <Route path='/favourites' element={<Favourites />}></Route>
+        <Route path='/' exact element=
+          {
+            <>
+              <Navbar />,
+              <Banner />,
+              <MoviesList />
+            </>
+          }
+        >
+        </Route>
+        <Route path='/favourites' element={<Favourites />}></Route>
+        <Route path='/info' element={<Info />}></Route>
       </Routes>
     </BrowserRouter>
   );

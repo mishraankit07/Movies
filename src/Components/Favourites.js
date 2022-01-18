@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { movies } from './getMovies.js';
+import Info from './Info.js';
 
 class Favourites extends Component {
 
@@ -73,7 +74,7 @@ class Favourites extends Component {
                                             moviesArr.map((movieObj) => (
                                                 <tr>
                                                     <td> <img src={`https://image.tmdb.org/t/p/w500${movieObj.backdrop_path}`} style={{width : "5rem",}} /></td> 
-                                                    <td> { movieObj.original_title } </td>
+                                                    <td> { movieObj.title } </td>
                                                     <td> { genreIdsMap[movieObj.genre_ids[0]] } </td>
                                                     <td> { movieObj.popularity } </td>
                                                     <td> { movieObj.vote_average } </td>

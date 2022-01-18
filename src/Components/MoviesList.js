@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import {Link} from 'react-router-dom';
 const axios = require("axios");
 
 // e7d54b67cd1e1b19df17e759463fd34b
@@ -11,8 +12,9 @@ class MoviesList extends Component {
             hover: '',
             pagesArr: [1],
             currPage: 1,
-            movies: [] // we need movies as a state as well bcoz for different pages movies list are
-            // different so need to render everytime this list changes
+            movies: [], // we need movies as a state as well bcoz for different pages movies list are
+            // different so need to render everytime this list changes,
+            favMovies:[]
         }
     }
 
@@ -43,11 +45,11 @@ class MoviesList extends Component {
     }
 
     componentDidUpdate = () => {
-        console.log("Component Getting Updated!");
+        //console.log("Component Getting Updated!");
     }
 
     componentWillUnmount = () => {
-        console.log("Component Getting Unmounted!");
+        //console.log("Component Getting Unmounted!");
     }
 
     nextPage=()=>{
@@ -98,8 +100,36 @@ class MoviesList extends Component {
         },this.loadMovies)
     }
 
+    handleInfo=(movieObj)=>{
+        //console.log("Title Clicked!");
+        //localStorage.setItem("ShowData",JSON.stringify(movieObj));
+        //<Link to="/info" />
+    }
+
+    handleFavourites=(movieId)=>{
+        let arr=JSON.parse(localStorage.getItem("favMovies") || "[]");// [...this.state.favMovies]
+        let narr=[];
+        if(arr.includes(movieId)==false){
+            arr.push(movieId);
+            narr=[...arr]
+        }
+
+        else{
+            narr=arr.filter((id)=>{
+                return (id!=movieId)
+            })
+        }
+
+        localStorage.setItem("favMovies",JSON.stringify(narr));
+
+        console.log("array:",narr);
+        this.setState({
+            favMovies: [...narr]
+        })
+    }
+
     render() {
-        console.log("render");
+        //console.log("render");
         // for writing JS within the return write within {}
         return (
             <>
@@ -117,11 +147,11 @@ class MoviesList extends Component {
 
                                     <div className="card movie-card" onMouseEnter={() => this.handleBtnShow(movieObj.id)} onMouseLeave={() => this.handleBtnOff()}>
                                         <img src={`https://image.tmdb.org/t/p/w500${movieObj.backdrop_path}`} className="card-img-top movie-img" alt="..." />
-                                        <div className="card-body" >
-                                            <h5 className="card-title movie-title" > {movieObj.original_title} </h5>
+                                        <div className="card-body">
+                                            <h5 className="card-title movie-title" onClick={()=>this.handleInfo(movieObj)}> {movieObj.title} </h5>
                                             <div className="btn-cont favourites-btn-cont">
                                                 {
-                                                    this.state.hover == movieObj.id && <a href="#" className="btn btn-primary" > Add To Favourites </a>
+                                                    this.state.hover == movieObj.id && <a href="#" className="btn btn-primary" onClick={()=>this.handleFavourites(movieObj.id)}> {this.state.favMovies.includes(movieObj.id)==true ? "Remove From Favourites" : "Add To Favourites"} </a>
                                                 }
                                             </div>
                                         </div>

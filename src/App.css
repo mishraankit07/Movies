@@ -122,6 +122,39 @@ body {
     padding: 3rem;
 }
 
+.movie-images{
+    display: flex;
+    width: 100vw;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.movie-images > *{
+    width: 30vw;
+    height: 60vh;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.genres-list{
+    height: 4rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1rem;
+}
+
+.genres-list > *{
+    width: 5rem;
+    height: 3rem;
+    border: 3px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20%;
+}
+
 @media screen and (max-width: 400px) {
     .banner-card {
         height: 30vh;
