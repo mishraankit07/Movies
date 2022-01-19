@@ -14,4 +14,5 @@ A react app where users can see the popular movies
 2. Axios (npm module)
 
 # Demo
-<video src="./demoVideo/demo.mkv" controls style="width:100px,height:100px">
+https://user-images.githubusercontent.com/47622667/150157440-c232153a-8bd7-4b0f-bf14-2889206ac71f.mov
+
