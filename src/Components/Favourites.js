@@ -17,7 +17,10 @@ class Favourites extends Component {
             // currently active genre, movies to be changed depending on this so make it state variable
             activeGenre:"All Genres",
             movies:[],
-            searchText: ''
+            searchText: '',
+            // default value 5
+            moviesPerPage: 5,
+            currPage: 1
         }
     }
 
@@ -45,6 +48,77 @@ class Favourites extends Component {
         })
     }
 
+    sortPopularity=(order)=>{
+        
+        let moviesList=[...this.state.movies];
+        if(order=="asc"){
+            moviesList.sort(function(objA,objB){
+                return (objA.popularity - objB.popularity);
+            });
+        }
+
+        else{
+            moviesList.sort(function(objA,objB){
+                return (objB.popularity - objA.popularity);
+            });
+        }
+
+        this.setState({
+            movies: [...moviesList]
+        })
+    }
+
+    handlePageChange=(page)=>{
+        this.setState({
+            currPage: page
+        })
+    }
+
+    sortRating=(order)=>{
+        let moviesList=[...this.state.movies];
+        if(order=="asc"){
+            moviesList.sort(function(objA,objB){
+                return (objA.vote_average - objB.vote_average);
+            });
+        }
+
+        else{
+            moviesList.sort(function(objA,objB){
+                return (objB.vote_average - objA.vote_average);
+            });
+        }
+
+        this.setState({
+            movies: [...moviesList]
+        });
+    }
+
+    handleMovieSearch(text){
+        this.setState({
+            searchText: text
+        });
+    }
+
+    handleRowCount(value){
+        this.setState({
+            moviesPerPage: value
+        });
+    }
+
+    handleDelete=(id)=>{
+        let filterArr=[];
+
+        filterArr=this.state.movies.filter((movieObj)=>{
+            return (movieObj.id!=id);
+        })
+
+        this.setState({
+            movies:[...filterArr]
+        })
+
+        localStorage.setItem("favMovies",JSON.stringify(filterArr));
+    }
+
     render() {
 
         // depending on the active genre, we need to show movies of that genre only
@@ -68,13 +142,30 @@ class Favourites extends Component {
             })
         }
 
-        console.log("Filtered Movies:",filteredMovies);
+        // we need to display movies as per the limit given to us by user
+        // i.e user tells the number of movies per page
+
+        let numPages=Math.ceil(filteredMovies.length/this.state.moviesPerPage);
+        let pagesArr=[];
+
+        for(let i=1;i<=numPages;i++){
+            pagesArr.push(i);
+        }
+
+        let startMovieIdx=(this.state.currPage-1)*this.state.moviesPerPage;
+        let aheadEndMovieIdx=startMovieIdx+this.state.moviesPerPage;
+
+        filteredMovies=filteredMovies.slice(startMovieIdx,aheadEndMovieIdx);
+
+        console.log("currPage:",this.state.currPage);
+        console.log("start:",startMovieIdx," end:",aheadEndMovieIdx);
+        console.log("movies for this page:",filteredMovies);
 
         return (
             <>
                 <div className="main">
                     <div className="row">
-                        <div className="col-3">
+                        <div className="col-lg-3 col-sm-12">
                             <ul className="list-group genres-list">
                                 {
                                     this.state.genresList.map((item)=>(
@@ -85,13 +176,13 @@ class Favourites extends Component {
                             </ul>
                         </div>
 
-                        <div className="col-9 favourites-table">
+                        <div className="col-lg-9 favourites-table col-sm-12">
                             <div className="row">
                                 <input type="text" className="input-group-text col" placeholder='Search' 
-                                onChange={(e)=>{
-                                this.setState({searchText: e.target.value})}}/>
+                                value={this.state.searchText} onChange={(e)=>{this.handleMovieSearch(e.target.value)}}/>
 
-                                <input type="number" className="input-group-text col" placeholder='Rows Count'/>
+                                <input type="number" className="input-group-text col" placeholder='Rows Count Default 5'
+                                value={this.state.moviesPerPage} onChange={(e)=>{this.handleRowCount(e.target.value)}} />
                             </div>
 
                             <div class="row">
@@ -101,8 +192,8 @@ class Favourites extends Component {
                                             <th scope="col"></th>
                                             <th scope="col"> Title </th>
                                             <th scope="col"> Genre </th>
-                                            <th scope="col"> Popularity </th>
-                                            <th scope="col"> Rating </th>
+                                            <th scope="col"><i class="fas fa-sort-up" onClick={()=>this.sortPopularity("desc")}/> Popularity <i class="fas fa-sort-down" onClick={()=>this.sortPopularity("asc")}/></th>
+                                            <th scope="col"><i class="fas fa-sort-up" onClick={()=>this.sortRating("desc")}/> Rating <i class="fas fa-sort-down" onClick={()=>this.sortRating("asc")}/></th>
                                             <th scope="col"></th>
                                         </tr>
                                     </thead>
@@ -110,12 +201,12 @@ class Favourites extends Component {
                                         {
                                             filteredMovies.map((movieObj) => (
                                                 <tr>
-                                                    <td> <img src={`https://image.tmdb.org/t/p/w500${movieObj.backdrop_path}`} style={{width : "5rem",}} /></td> 
+                                                    <td> <img src={`https://image.tmdb.org/t/p/w500${movieObj.backdrop_path}`} style={{width : "5rem"}} /></td> 
                                                     <td> { movieObj.title } </td>
                                                     <td> { genreIdsMap[movieObj.genre_ids[0]] } </td>
                                                     <td> { movieObj.popularity } </td>
                                                     <td> { movieObj.vote_average } </td>
-                                                    <td> <button type="button" class="btn btn-danger"> Delete </button> </td>
+                                                    <td> <button type="button" class="btn btn-danger" onClick={()=>this.handleDelete(movieObj.id)}> Delete </button> </td>
                                                 </tr>
 
                                             ))
@@ -126,9 +217,12 @@ class Favourites extends Component {
 
                             <nav aria-label="Page navigation example">
                                 <ul class="pagination">
-                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                    {
+                                        pagesArr.map((page)=>(
+                                            <li class="page-item" 
+                                                onClick={()=>{this.handlePageChange(page)}}><a class="page-link">{page}</a></li>        
+                                        ))
+                                    }
                                 </ul>
                             </nav>
                         </div>

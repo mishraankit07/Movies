@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import {Link} from 'react-router-dom';
 const axios = require("axios");
 
 // e7d54b67cd1e1b19df17e759463fd34b
@@ -40,10 +39,21 @@ class MoviesList extends Component {
         //console.log("Result",res);
         //console.log("After making request!");
         
+        let favouritesArr=JSON.parse(localStorage.getItem("favMovies") || "[]");
+        let favMoviesId=[]
+        if(favouritesArr.length!=0){
+            favouritesArr.map((movieObj)=>{
+                favMoviesId.push(movieObj.id);
+            })
+        }
+
+        console.log("favMoviesId:",favMoviesId);
+
         //console.log("movies:",moviesArr);
         this.setState({
-            movies: [...moviesArr]
-        })
+            movies: [...moviesArr],
+            favMovies: [...favMoviesId]
+        });
     }
 
     componentDidUpdate = () => {
@@ -136,7 +146,7 @@ class MoviesList extends Component {
     }
 
     render() {
-        //console.log("render");
+        console.log("render called!");
         // for writing JS within the return write within {}
         return (
             <>
