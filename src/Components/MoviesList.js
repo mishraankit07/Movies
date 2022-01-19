@@ -14,7 +14,9 @@ class MoviesList extends Component {
             currPage: 1,
             movies: [], // we need movies as a state as well bcoz for different pages movies list are
             // different so need to render everytime this list changes,
-            favMovies:[]
+            // if a movie is marked favourite, then also UI needs to change, so storing it 
+            // as state variable
+            favMoviesId:[]
         }
     }
 
@@ -38,7 +40,7 @@ class MoviesList extends Component {
         //console.log("Result",res);
         //console.log("After making request!");
         
-        console.log("movies:",moviesArr);
+        //console.log("movies:",moviesArr);
         this.setState({
             movies: [...moviesArr]
         })
@@ -106,26 +108,31 @@ class MoviesList extends Component {
         //<Link to="/info" />
     }
 
-    handleFavourites=(movieId)=>{
-        let arr=JSON.parse(localStorage.getItem("favMovies") || "[]");// [...this.state.favMovies]
-        let narr=[];
-        if(arr.includes(movieId)==false){
-            arr.push(movieId);
-            narr=[...arr]
-        }
-
-        else{
-            narr=arr.filter((id)=>{
-                return (id!=movieId)
+    handleFavourites=(movieObj)=>{
+        
+        let prevMovies=JSON.parse(localStorage.getItem("favMovies") || "[]");// [...this.state.favMovies]
+        
+        // current movie was previously marked favourite,so remove it
+        if(this.state.favMoviesId.includes(movieObj.id)){
+            // filter the movies and remove current movie
+            prevMovies=prevMovies.filter((movie)=>{
+                return movie.id!=movieObj.id;
             })
         }
 
-        localStorage.setItem("favMovies",JSON.stringify(narr));
+        else{
+            prevMovies.push(movieObj);
+        }
 
-        console.log("array:",narr);
-        this.setState({
-            favMovies: [...narr]
+        localStorage.setItem("favMovies",JSON.stringify(prevMovies));
+        let favIds=[];
+        prevMovies.map((movie)=>{
+            favIds.push(movie.id);    
         })
+
+        this.setState({
+            favMoviesId:favIds
+        });
     }
 
     render() {
@@ -151,7 +158,7 @@ class MoviesList extends Component {
                                             <h5 className="card-title movie-title" onClick={()=>this.handleInfo(movieObj)}> {movieObj.title} </h5>
                                             <div className="btn-cont favourites-btn-cont">
                                                 {
-                                                    this.state.hover == movieObj.id && <a href="#" className="btn btn-primary" onClick={()=>this.handleFavourites(movieObj.id)}> {this.state.favMovies.includes(movieObj.id)==true ? "Remove From Favourites" : "Add To Favourites"} </a>
+                                                    this.state.hover == movieObj.id && <a className="btn btn-primary" onClick={()=>this.handleFavourites(movieObj)}> {this.state.favMoviesId.includes(movieObj.id)==true ? "Remove From Favourites" : "Add To Favourites"} </a>
                                                 }
                                             </div>
                                         </div>

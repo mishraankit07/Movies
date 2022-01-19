@@ -137,7 +137,7 @@ body {
     background-repeat: no-repeat;
 }
 
-.genres-list{
+.info-genres-list{
     height: 4rem;
     display: flex;
     justify-content: flex-start;
@@ -145,7 +145,7 @@ body {
     gap: 1rem;
 }
 
-.genres-list > *{
+.info-genres-list > *{
     width: 5rem;
     height: 3rem;
     border: 3px solid black;

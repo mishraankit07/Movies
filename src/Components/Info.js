@@ -26,7 +26,7 @@ class Info extends Component {
                     <img src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`} />
                 </div>
 
-                <div className="genres-list">
+                <div className="info-genres-list">
                     {
                         movie.genre_ids.map((genreId) => (
                             <div> {genreIdsMap[genreId]} </div>
