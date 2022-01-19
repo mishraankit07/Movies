@@ -1,3 +1,6 @@
+# About
+A react app where users can see the popular movies
+
 # Features
 1. [Movies app](https://react-movies-app-ankit.netlify.app/), brings the most popular movies from the [Tmdb Api](https://www.themoviedb.org/) and displays them. 
 
